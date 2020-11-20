@@ -1,4 +1,5 @@
-
+// Raine Bradley
+// Proof of concept demonstrating a sample smile design for the pandemic mask project
 #include "FastLED.h"
 
 #define DATA_PIN 6
