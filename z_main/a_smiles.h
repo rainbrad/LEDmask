@@ -1,4 +1,8 @@
+/*
+   Draw Smile functions
+*/
 #include "FastLED.h"
+#include "transpose/b_transpose.h"
 
 #define DATA_PIN 3
 #define LED_TYPE WS2812B
@@ -19,182 +23,124 @@ void showProgramCleanUp(long delayTime) {
   delay(delayTime);
 }
 
-void showSmile_1(int scale) { // standard smile
 
-  int b, c;
-  int length = 184 + (16 * scale); // Length of midsection of the smile (before it curves)
-  for (int i = (NUM_LEDS / 2) + 3, j = (NUM_LEDS / 2) - 5 ; i < length; i += 8, j -= 8) {    // Draws smile from middle, i designates LEDs going up the strip (pos. direction)         i + 3: NUM_LEDS/2 is on the bottom of the strip, +3 moves to the middle
-    leds[i] = CRGB::Red;                                                                  // j designates LEDs going down the strip (neg. direction)                                j - 5: ^^ -5 moves to the middle also
+void showSmile_1(int scale, int vert, int hor) {    //scale <= 10    vert <= 4
+  int i = NUM_LEDS / 2, j = i + 1;
+  i = transpose(i, vert, 0);
+  j = transpose(j, vert - 1, 0);
+  for (int x = 0; x <= scale; x++) {
+    leds[i] = CRGB::Red;
     leds[j] = CRGB::Red;
-    leds[j + 1] = CRGB::Red;  // gives thickness of two LEDs
-    leds[i + 1] = CRGB::Red;
-    delay(50);
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
     FastLED.show();
-    b = i;
-    c = j;
+    delay(75);
   }
-  b += 7;
-  c -= 7;                 // incrementing LEDs to create curve of the smile
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  b += 10;
-  c -= 10;
+  leds[i] = CRGB::Red;
+  leds[j] = CRGB::Red;
+  leds[transpose(i, 1, 0)] = CRGB::Red;
+  leds[transpose(j, 1, 0)] = CRGB::Red;
+  FastLED.show();
   delay(75);
-  FastLED.show();
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  b += 5;
-  c -= 5;
-  delay(75);
-  FastLED.show();
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  b += 12;
-  c -= 12;
-  delay(75);
-  FastLED.show();
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[b + 2] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  leds[c - 1] = CRGB::Red;
-  b += 4;
-  c -= 4;
-  delay(75);
-  FastLED.show();
-  leds[b] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  leds[b - 1] = CRGB::Red;
-  leds[c + 2] = CRGB::Red;
-
-  FastLED.show();
-
+  for (int x = 0; x < 2; x++) {
+    i = transpose(i, 1, -1);
+    j = transpose(j, 1, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    FastLED.show();
+    delay(75);
+  }
 }
 
-void showSmile_2(int scale ) { // standard frown
 
-  int b, c;
-  int length = 184 + (16 * scale); // Length of midsection of the smile (before it curves)
-  for (int i = (NUM_LEDS / 2) + 3, j = (NUM_LEDS / 2) - 5 ; i < length; i += 8, j -= 8) {    // Draws smile from middle, i designates LEDs going up the strip (pos. direction)         i + 3: NUM_LEDS/2 is on the bottom of the strip, +3 moves to the middle
-    leds[i] = CRGB::Red;                                                                  // j designates LEDs going down the strip (neg. direction)                                j - 5: ^^ -5 moves to the middle also
+void showSmile_2(int scale, int vert, int hor) {
+  int i = NUM_LEDS / 2, j = i + 1;
+  i = transpose(i, vert, 0);
+  j = transpose(j, vert - 1, 0);
+  for (int x = 0; x <= scale; x++) {
+    leds[i] = CRGB::Red;
     leds[j] = CRGB::Red;
-    leds[j + 1] = CRGB::Red;  // gives thickness of two LEDs
-    leds[i + 1] = CRGB::Red;
-    delay(50);
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
     FastLED.show();
-    b = i;
-    c = j;
+    delay(75);
   }
-
-
-  b += 9;
-  c -= 9;                 // incrementing LEDs to create curve of the smile
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
+  leds[i] = CRGB::Red;
+  leds[j] = CRGB::Red;
+  leds[transpose(i, 1, 0)] = CRGB::Red;
+  leds[transpose(j, 1, 0)] = CRGB::Red;
+  FastLED.show();
   delay(75);
-  FastLED.show();
-  b += 6;
-  c -= 6;
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  delay(75);
-  FastLED.show();
-
-  b += 11;
-  c -= 11;
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-
-  delay(75);
-  FastLED.show();
-
-  b += 3;
-  c -= 3;
-  leds[b] = CRGB::Red;
-  leds[c] = CRGB::Red;
-  leds[b + 1] = CRGB::Red;
-  leds[b + 2] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  leds[c - 1] = CRGB::Red;
-  delay(75);
-  FastLED.show();
-
-  b += 15;
-  c -= 15;
-  leds[b] = CRGB::Red;
-  leds[c + 1] = CRGB::Red;
-  leds[b - 1] = CRGB::Red;
-  leds[c + 2] = CRGB::Red;
-
-  FastLED.show();
-
+  for (int x = 0; x < 2; x++) {
+    i = transpose(i, -1, -1);
+    j = transpose(j, -1, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    FastLED.show();
+    delay(75);
+  }
 }
 
-void showSmile_3() {  // mouth open smile :D  Drawn from left and right side simultaniously
-  int length = 224; // Length of upper mouth
-
-  for (int i = NUM_LEDS / 8 + 7, j = 1, k = -1; i < length; j++) {  //top of mouth
+void showSmile_3(int size, int vert, int hor) {
+  int i = NUM_LEDS / 2, j = i + 1;
+  i = transpose(i, 1 + vert, hor);
+  j = transpose(j, vert, hor);
+  for (int x = 0; x < size; x++) {
     leds[i] = CRGB::Red;
-    leds[i + k] = CRGB::Red;      // Adds Mouth thickness
-    if  (j % 2 != 0) {            // IF NEXT LED IS 1 AWAY FROM I (Due to zig zagging)
-      i += 1;
-    } else {
-      i += 15;
-    }
-    k = k * (-1);
-
+    leds[j] = CRGB::Red;
+    leds[transpose(i, -1, 0)] = CRGB::Red;
+    leds[transpose(j, -1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
+    FastLED.show();
+    delay(50);
   }
-  int i = NUM_LEDS / 8 + 6;
   leds[i] = CRGB::Red;
-  leds[i - 1] = CRGB::Red;
-  leds[i + 4] = CRGB::Red;
-  leds[i + 5] = CRGB::Red;
-  leds[i + 179] = CRGB::Red;
-  leds[i + 180] = CRGB::Red;
-  leds[i + 175] = CRGB::Red;
-  leds[i + 174] = CRGB::Red;
-  i += 14;               //moving to next section of smile ( Curve of the mouth )
-  leds[i] = CRGB::Red;
-  leds[i - 1] = CRGB::Red;
-  leds[i + 151] = CRGB::Red;
-  leds[i + 152] = CRGB::Red;
-  i += 8;
-  leds[i] = CRGB::Red;
-  leds[i + 1] = CRGB::Red;
-  leds[i + 135] = CRGB::Red;
-  leds[i + 134] = CRGB::Red;
-  i += 6;
-  leds[i] = CRGB::Red;
-  leds[i - 1] = CRGB::Red;
-  leds[i + 123] = CRGB::Red;
-  leds[i + 124] = CRGB::Red;
-  i += 12;
-  for ( int j = 1, k = 1; j <= 14; j++) {    //drawing bottom of mouth
-    leds[i] = CRGB::Red;
-    leds[i + k] = CRGB::Red;
-    if ( j % 2 != 0) {            // IF NEXT LED IS 1 AWAY FROM I
-      i += 3;
-    } else {
-      i += 13;
-    }
-    k = k * (-1);
-  }
-  // Mouth Corners
-
+  leds[j] = CRGB::Red;
+  leds[transpose(i, -1, 0)] = CRGB::Red;
+  leds[transpose(j, -1, 0)] = CRGB::Red;
   FastLED.show();
+  delay(50);
+  for (int x = 0; x < size; x++) {
+    i = transpose(i, 1, -1);
+    j = transpose(j, 1, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, -1, 0)] = CRGB::Red;
+    leds[transpose(j, -1, 0)] = CRGB::Red;
+    FastLED.show();
+    delay(50);
+  }
+  while (j > i) {
+    i = transpose(i, 0, 1);
+    j = transpose(j, 0, -1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, -1, 0)] = CRGB::Red;
+    leds[transpose(j, -1, 0)] = CRGB::Red;
+    FastLED.show();
+    delay(50);
+  }
 }
 
 void showSmile_4() {  // HELLO
@@ -461,15 +407,67 @@ void showSmile_5invert() {
 
 }
 
-void showSmile_5full(int speed, int delayRatio, int loop) { // demo mode: (1500, 10, 5)
+void showSmile_5full(int speed, int loop) { // demo mode: (1500, 5)
   for (int i = 0; i < loop; i++) {
     showSmile_5();
     delay(speed);
     showProgramCleanUp(0);
-    delay(speed / delayRatio);
     showSmile_5invert();
     delay(speed);
     showProgramCleanUp(0);
-    delay(speed / delayRatio);
+  }
+}
+
+void showSmile_6(int scale, int vert, int hor) {
+  int i = NUM_LEDS / 2, j = i + 1;
+  i = transpose(i, vert, 0);
+  j = transpose(j, vert - 1, 0);
+  for (int x = 0; x <= scale; x++) {
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
+    FastLED.show();
+    delay(75);
+  }
+  leds[i] = CRGB::Red;
+  leds[j] = CRGB::Red;
+  leds[transpose(i, 1, 0)] = CRGB::Red;
+  leds[transpose(j, 1, 0)] = CRGB::Red;
+  FastLED.show();
+  delay(75);
+  int y = i;
+  int z = j;
+  for (int x = 0; x < 2; x++) {
+    y = transpose(y, -1, -1);
+    z = transpose(z, -1, 1);
+    leds[y] = CRGB::Red;
+    leds[z] = CRGB::Red;
+    leds[transpose(y, 1, 0)] = CRGB::Red;
+    leds[transpose(z, 1, 0)] = CRGB::Red;
+    y = transpose(y, 0, -1);
+    z = transpose(z, 0, 1);
+    leds[y] = CRGB::Red;
+    leds[z] = CRGB::Red;
+    leds[transpose(y, 1, 0)] = CRGB::Red;
+    leds[transpose(z, 1, 0)] = CRGB::Red;
+
+
+    i = transpose(i, 1, -1);
+    j = transpose(j, 1, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    i = transpose(i, 0, -1);
+    j = transpose(j, 0, 1);
+    leds[i] = CRGB::Red;
+    leds[j] = CRGB::Red;
+    leds[transpose(i, 1, 0)] = CRGB::Red;
+    leds[transpose(j, 1, 0)] = CRGB::Red;
+    FastLED.show();
+    delay(75);
   }
 }
