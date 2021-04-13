@@ -1,11 +1,10 @@
-
+/*
+   Transposition functions
+*/
 
 int transposeVert(int input, int dist) {
   int rowInd = input / 8;
-  int tempInput = input % 8;
-  Serial.print(rowInd);
-  Serial.print(tempInput);
-  switch (rowInd / 2) {
+  switch (rowInd % 2) {
     case 0:
       input = input + dist;
       break;
@@ -16,13 +15,10 @@ int transposeVert(int input, int dist) {
   return input;
 }
 int transposeHor(int input, int dist) {         //Negative dist = right Positive dist = left
-  //int rowInd = input / 8;
   if (dist == 0) {
     return input;
   } else {
     int tempInput = input % 8;
-//    Serial.print(rowInd);
-    Serial.print(tempInput);
     switch (tempInput) {
       case 0:
         if (dist < 0) {
@@ -54,7 +50,7 @@ int transposeHor(int input, int dist) {         //Negative dist = right Positive
         break;
       case 4:
         if (dist < 0) {
-          input = input - 7;
+          input = input - 9;
         } else {
           input = input + 7;
         }
@@ -70,7 +66,7 @@ int transposeHor(int input, int dist) {         //Negative dist = right Positive
         if (dist < 0) {
           input = input - 13;
         } else {
-          input = input + 5;
+          input = input + 3;
         }
         break;
       case 7:
@@ -81,7 +77,11 @@ int transposeHor(int input, int dist) {         //Negative dist = right Positive
         }
         break;
     }
-    dist--;
+    if (dist > 0) {
+      dist--;
+    } else {
+      dist++;
+    }
     return transposeHor(input, dist);
   }
 }
