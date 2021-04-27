@@ -204,6 +204,5 @@ void movementDemo(long showTime, long cleanTime) {
 
 // main program
 void loop() {
-  showSmile(6, 15, 0);
-  //showSquiggleInvert();
+  runProgram();
 }
